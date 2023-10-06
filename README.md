@@ -1,5 +1,9 @@
 # dotfiles
-config files
 
-# set vi as default editor instead of nano
+# set vi as default
 sudo update-alternatives --config editor
+
+# git config
+git config --global --edit
+git config credential.helper store
+
