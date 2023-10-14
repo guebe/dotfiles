@@ -1,5 +1,8 @@
 # dotfiles
 
+# installation of tools
+sudo apt install bash-completion vim-tiny wireshark wine build-essential flatpak git kdiff3
+
 # set vi as default
 sudo update-alternatives --config editor
 
