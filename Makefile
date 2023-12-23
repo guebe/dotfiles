@@ -5,6 +5,8 @@ help:
 	@echo "  install ... apt install packets"
 	@echo "  git     ... configure git"
 	@echo "  pwsh    ... install powershell"
+	@echo "flatpak   ... install flatpaks"
+	@echo "x11       ... install x11"
 	@echo "firmware  ... upgrade firmware"
 	@echo "size      ... sort installed packets by size"
 
@@ -20,7 +22,7 @@ links:
 .PHONY: install
 install:
 	sudo apt update
-	sudo apt install bash-completion vim-gtk3 build-essential flatpak git fwupd
+	sudo apt install bash-completion vim-gtk3 build-essential flatpak git fwupd gdb virtualbox onedrive
 	sudo update-alternatives --set editor /usr/bin/vim.gtk3
 
 .PHONY: git
@@ -34,6 +36,14 @@ pwsh:
 	sudo dpkg -i powershell_7.4.0-1.deb_amd64.deb
 	sudo apt-get install -f
 	rm powershell_7.4.0-1.deb_amd64.deb
+
+.PHONY: x11
+x11:
+	sudo apt install xfce4 lightdm atril ristretto xfce4-terminal network-manager-gnome xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager cups
+
+.PHONY: flatpak
+flatpak:
+	flatpak install flathub org.mamedev.MAME org.mozilla.firefox org.libreoffice.LibreOffice us.zoom.Zoom org.winehq.Wine org.wireshark.Wireshark org.ghidra_sre.Ghidra org.gnome.meld com.visualstudio.code com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.openscad.OpenSCAD org.speedcrunch.SpeedCrunch org.gnome.Mines org.gimp.GIMP vlc
 
 .PHONY: firmware
 firmware:
