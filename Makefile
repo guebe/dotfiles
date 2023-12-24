@@ -2,30 +2,43 @@
 help:
 	@echo "links     ... install symlinks for config files"
 	@echo "install   ... apt install packets"
+	@echo "vim       ... install vim"
 	@echo "wireshark ... install wireshark"
+	@echo "onedrive  ... install onedrive"
 	@echo "vbox      ... install virtualbox"
 	@echo "git       ... configure git"
 	@echo "pwsh      ... install powershell"
-	@echo "flatpak   ... install flatpaks"
+	@echo "flatpak   ... install flatpak"
 	@echo "firmware  ... upgrade firmware"
 	@echo "size      ... sort installed packets by size"
 
 .PHONY: links
 links:
-	ln -is ${PWD}/vimrc ${HOME}/.vimrc
 	ln -is ${PWD}/tmux.conf ${HOME}/.tmux.conf
 	ln -is ${PWD}/xsessionrc ${HOME}/.xsessionrc
 
 .PHONY: install
 install:
 	sudo apt update
-	sudo apt install xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 xfce4-terminal vim network-manager-gnome firefox-esr git bash-completion build-essential flatpak fwupd gdb onedrive atril ristretto xfce4-clipman-plugin xfce4-screenshooter meld openscad gnome-mines speedcrunch vlc gimp mame wine libreoffice-calc libreoffice-impress libreoffice-writer zoxide fzf tldr wget curl gnupg2 lsb-release dkms 
+	sudo apt install xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 xfce4-terminal network-manager-gnome firefox-esr bash-completion build-essential fwupd gdb atril ristretto xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager meld openscad gnome-mines speedcrunch vlc gimp mame wine libreoffice-calc libreoffice-impress libreoffice-writer zoxide fzf tldr wget curl gnupg2 lsb-release dkms
+
+.PHONY: vim
+vim:
+	sudo apt install vim
 	sudo update-alternatives --set editor /usr/bin/vim.basic
+	ln -is ${PWD}/vimrc ${HOME}/.vimrc
 
 .PHONY: wireshark
 wireshark:
 	sudo apt install wireshark
 	sudo usermod -aG wireshark ${USER}
+
+.PHONY: onedrive
+onedrive:
+	sudo apt install onedrive
+	onedrive
+	systemctl --user enable onedrive
+	systemctl --user start onedrive
 
 .PHONY: vbox
 vbox:
@@ -38,6 +51,7 @@ vbox:
 
 .PHONY: git
 git:
+	sudo apt install git
 	git config --global credential.helper store
 	git config --global --edit
 
@@ -50,6 +64,7 @@ pwsh:
 
 .PHONY: flatpak
 flatpak:
+	sudo apt install flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub us.zoom.Zoom org.ghidra_sre.Ghidra com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer
 
