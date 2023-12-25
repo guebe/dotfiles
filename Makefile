@@ -3,6 +3,7 @@ help:
 	@echo "install   ... apt install packets"
 	@echo "flatpak   ... install flatpak"
 	@echo "vim       ... install vim"
+	@echo "zoxide    ... install zoxide"
 	@echo "wireshark ... install wireshark"
 	@echo "onedrive  ... install onedrive"
 	@echo "vbox      ... install virtualbox"
@@ -14,20 +15,25 @@ help:
 .PHONY: install
 install:
 	sudo apt update
-	sudo apt install xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 xfce4-terminal network-manager-gnome bash-completion build-essential fwupd gdb atril ristretto xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager meld openscad gnome-mines speedcrunch zoxide fzf tldr python3-numpy
+	sudo apt install xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 xfce4-terminal network-manager-gnome build-essential fwupd gdb atril ristretto xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager python3-numpy tldr bash-completion
 	ln -is ${PWD}/xsessionrc ${HOME}/.xsessionrc
 
 .PHONY: flatpak
 flatpak:
 	sudo apt install flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	flatpak install flathub us.zoom.Zoom org.ghidra_sre.Ghidra com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.libreoffice.LibreOffice org.gimp.GIMP org.winehq.Wine org.mamedev.MAME org.videolan.VLC org.mozilla.firefox
+	flatpak install flathub us.zoom.Zoom org.ghidra_sre.Ghidra com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.libreoffice.LibreOffice org.gimp.GIMP org.winehq.Wine org.mamedev.MAME org.videolan.VLC org.mozilla.firefox org.speedcrunch.SpeedCrunch org.gnome.Mines org.gnome.meld org.openscad.OpenSCAD
 
 .PHONY: vim
 vim:
 	sudo apt install vim
 	sudo update-alternatives --set editor /usr/bin/vim.basic
 	ln -is ${PWD}/vimrc ${HOME}/.vimrc
+
+.PHONY: zoxide
+zoxide:
+	sudo apt install zoxide fzf
+	zoxide init bash >> ${HOME}/.bashrc
 
 .PHONY: wireshark
 wireshark:
