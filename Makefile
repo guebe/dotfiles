@@ -1,16 +1,20 @@
 .PHONY: help
 help:
-	@echo "install   ... apt install packets"
-	@echo "git       ... configure git"
-	@echo "vim       ... install vim"
-	@echo "zoxide    ... install zoxide"
-	@echo "wireshark ... install wireshark"
-	@echo "flatpak   ... install flatpak"
-	@echo "onedrive  ... install onedrive"
-	@echo "vbox      ... install virtualbox"
-	@echo "pwsh      ... install powershell"
-	@echo "firmware  ... upgrade firmware"
-	@echo "size      ... sort installed packets by size"
+	@echo "all"
+	@echo "  install   ... apt install packets"
+	@echo "  git       ... configure git"
+	@echo "  vim       ... install vim"
+	@echo "  zoxide    ... install zoxide"
+	@echo "  wireshark ... install wireshark"
+	@echo "  flatpak   ... install flatpak"
+	@echo "onedrive    ... install onedrive"
+	@echo "vbox        ... install virtualbox"
+	@echo "pwsh        ... install powershell"
+	@echo "firmware    ... upgrade firmware"
+	@echo "size        ... sort installed packets by size"
+
+.PHONY: all
+all: install git vim zoxide wireshark flatpak
 
 .PHONY: install
 install:
