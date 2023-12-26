@@ -22,6 +22,8 @@ install:
 git:
 	sudo apt install git
 	git config --global credential.helper store
+	git config --global user.name "gue"
+	git config --global user.email gue@debian.home
 
 .PHONY: vim
 vim:
