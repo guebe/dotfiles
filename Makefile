@@ -1,13 +1,13 @@
 .PHONY: help
 help:
 	@echo "install   ... apt install packets"
-	@echo "flatpak   ... install flatpak"
+	@echo "git       ... configure git"
 	@echo "vim       ... install vim"
 	@echo "zoxide    ... install zoxide"
 	@echo "wireshark ... install wireshark"
+	@echo "flatpak   ... install flatpak"
 	@echo "onedrive  ... install onedrive"
 	@echo "vbox      ... install virtualbox"
-	@echo "git       ... configure git"
 	@echo "pwsh      ... install powershell"
 	@echo "firmware  ... upgrade firmware"
 	@echo "size      ... sort installed packets by size"
@@ -15,14 +15,13 @@ help:
 .PHONY: install
 install:
 	sudo apt update
-	sudo apt install xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 xfce4-terminal network-manager-gnome build-essential fwupd gdb atril ristretto xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager python3-numpy tldr bash-completion
+	sudo apt install xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 xfce4-terminal network-manager-gnome build-essential gdb atril ristretto xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager tldr bash-completion firefox-esr openscad speedcrunch
 	ln -is ${PWD}/xsessionrc ${HOME}/.xsessionrc
 
-.PHONY: flatpak
-flatpak:
-	sudo apt install flatpak
-	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	flatpak install flathub us.zoom.Zoom org.ghidra_sre.Ghidra com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.libreoffice.LibreOffice org.gimp.GIMP org.winehq.Wine org.mamedev.MAME org.videolan.VLC org.mozilla.firefox org.speedcrunch.SpeedCrunch org.gnome.Mines org.gnome.meld org.openscad.OpenSCAD
+.PHONY: git
+git:
+	sudo apt install git
+	git config --global credential.helper store
 
 .PHONY: vim
 vim:
@@ -40,6 +39,12 @@ wireshark:
 	sudo apt install wireshark
 	sudo usermod -aG wireshark ${USER}
 
+.PHONY: flatpak
+flatpak:
+	sudo apt install flatpak
+	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	flatpak install flathub us.zoom.Zoom org.ghidra_sre.Ghidra com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.libreoffice.LibreOffice org.gimp.GIMP org.winehq.Wine org.mamedev.MAME org.videolan.VLC org.gnome.Mines org.gnome.meld
+
 .PHONY: onedrive
 onedrive:
 	sudo apt install onedrive
@@ -52,17 +57,10 @@ vbox:
 	sudo apt update
 	sudo apt install curl gnupg2 lsb-release dkms
 	curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/vbox.gpg
-	curl -fsSL https://www.virtualbox.org/download/oracle_vbox.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox.gpg
 	echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $$(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 	sudo apt update
 	sudo apt install virtualbox-7.0
 	sudo usermod -aG vboxusers ${USER}
-
-.PHONY: git
-git:
-	sudo apt install git
-	git config --global credential.helper store
-	git config --global --edit
 
 .PHONY: pwsh
 pwsh:
@@ -74,6 +72,7 @@ pwsh:
 
 .PHONY: firmware
 firmware:
+	sudo apt install fwupd
 	sudo fwupdmgr refresh --force
 	sudo fwupdmgr update
 
