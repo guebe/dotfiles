@@ -1,6 +1,6 @@
 " press 'K' on any of the word under cursor to get help
 
-colorscheme torte
+colorscheme koehler
 filetype plugin indent on
 packadd! matchit
 set background=dark
