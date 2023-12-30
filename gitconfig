@@ -1,0 +1,5 @@
+[credential]
+	helper = store
+[user]
+	name = gue
+	email = gue@debian.home
