@@ -1,0 +1,1 @@
+deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.gpg] http://packages.microsoft.com/repos/microsoft-debian-bullseye-prod bullseye main
