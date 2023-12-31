@@ -5,12 +5,9 @@ PKGS:=atril bash-completion build-essential dkms dnsutils docker-compose docker.
 APPS:=com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra org.gimp.GIMP org.gnome.Mines org.libreoffice.LibreOffice org.mamedev.MAME org.videolan.VLC org.winehq.Wine//stable-23.08 us.zoom.Zoom
 
 help:
-	@echo 'install     ... install base system - idempotent'
-	@echo 'init        ... init software - idempotent'
-	@echo 'firmware    ... upgrade firmware'
-	@echo 'size        ... sort installed packets by size'
+	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST) | column -tl 2
 
-install:
+install: ## install base system - idempotent
 	sudo cp -R apt /etc
 	sudo apt-get -qq update
 	sudo apt-get -qq autoremove
@@ -18,7 +15,7 @@ install:
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install --noninteractive flathub $(APPS)
 
-init:
+init: ## init software - idempotent
 	for FILE in $(DOTFILES); do \
 		ln -sf $(CURDIR)/$$FILE $(HOME)/.$$FILE; \
 	done
@@ -27,11 +24,11 @@ init:
 	grep -q zoxide $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
 	systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
 
-firmware:
+firmware: ## upgrade firmware
 	sudo fwupdmgr refresh --force
 	sudo fwupdmgr update
 
-size:
+size: ## sort installed packets by size
 	dpkg-query -Wf '$${Installed-Size}\t$${Package}\n' | sort -n
 
 .PHONY: help install init firmware size
