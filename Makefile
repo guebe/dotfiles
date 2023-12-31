@@ -1,3 +1,5 @@
+GROUPS:=dialout docker vboxusers wireshark
+
 DOTFILES:=gitconfig vimrc xsessionrc
 
 PKGS:=atril bash-completion build-essential dkms dnsutils docker-compose docker.io file firefox-esr flatpak fwupd fzf gdb git gnupg2 libx11-dev libxft-dev libxinerama-dev lightdm meld network-manager-gnome onedrive openscad pkgconf powershell python3-venv ristretto speedcrunch thunar-archive-plugin tldr vim virtualbox-7.0 wget wireshark xfce4 xfce4-clipman-plugin xfce4-power-manager xfce4-screenshooter xfce4-terminal xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev zoxide
@@ -19,7 +21,9 @@ init: ## init software - idempotent
 	for FILE in $(DOTFILES); do \
 		ln -sf $(CURDIR)/$$FILE $(HOME)/.$$FILE; \
 	done
-	sudo usermod -aG dialout,docker,vboxusers,wireshark $(USER)
+	for GROUP in $(GROUPS); do \
+		sudo usermod -aG $$GROUP $(USER); \
+	done
 	sudo update-alternatives --set editor /usr/bin/vim.basic
 	grep -q zoxide $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
 	systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
