@@ -1,8 +1,8 @@
-DOTFILES := xsessionrc vimrc gitconfig
+DOTFILES:=gitconfig vimrc xsessionrc
 
-PKGS := xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev lightdm xfce4 thunar-archive-plugin xfce4-terminal network-manager-gnome build-essential gdb atril ristretto xfce4-clipman-plugin xfce4-screenshooter xfce4-power-manager tldr bash-completion firefox-esr openscad speedcrunch libx11-dev libxft-dev pkgconf libxinerama-dev dnsutils python3-venv meld git vim zoxide fzf wireshark flatpak onedrive gnupg2 dkms wget fwupd virtualbox-7.0 powershell file
+PKGS:=atril bash-completion build-essential dkms dnsutils file firefox-esr flatpak fwupd fzf gdb git gnupg2 libx11-dev libxft-dev libxinerama-dev lightdm meld network-manager-gnome onedrive openscad pkgconf powershell python3-venv ristretto speedcrunch thunar-archive-plugin tldr vim virtualbox-7.0 wget wireshark xfce4 xfce4-clipman-plugin xfce4-power-manager xfce4-screenshooter xfce4-terminal xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev zoxide
 
-APPS := us.zoom.Zoom org.ghidra_sre.Ghidra com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.libreoffice.LibreOffice org.gimp.GIMP org.winehq.Wine//stable-23.08 org.mamedev.MAME org.videolan.VLC org.gnome.Mines
+APPS:=com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra org.gimp.GIMP org.gnome.Mines org.libreoffice.LibreOffice org.mamedev.MAME org.videolan.VLC org.winehq.Wine//stable-23.08 us.zoom.Zoom
 
 help:
 	@echo 'install     ... install base system - idempotent'
