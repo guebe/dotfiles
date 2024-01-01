@@ -12,8 +12,7 @@ help:
 install: ## install base system - idempotent
 	sudo cp -R apt /etc
 	sudo apt-get -qq update
-	sudo apt-get -qq autoremove
-	sudo apt-get -qq install $(PKGS)
+	sudo apt-get -qq --auto-remove install $(PKGS)
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install --noninteractive flathub $(APPS)
 
