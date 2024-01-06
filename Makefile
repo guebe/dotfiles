@@ -2,7 +2,7 @@ GROUPS:=dialout docker vboxusers wireshark
 
 DOTFILES:=gitconfig vimrc xsessionrc
 
-PKGS:=atril bash-completion build-essential dkms dnsutils docker-compose docker.io file firefox-esr flatpak fwupd fzf gdb git gnupg2 libx11-dev libxft-dev libxinerama-dev lightdm meld network-manager-gnome onedrive openscad pkgconf powershell python3-venv ristretto speedcrunch thunar-archive-plugin tldr vim virtualbox-7.0 wget wireshark xfce4 xfce4-clipman-plugin xfce4-power-manager xfce4-screenshooter xfce4-terminal xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev zoxide
+PKGS:=atril bash-completion build-essential cups dkms dnsutils docker-compose docker.io file firefox-esr flatpak fwupd fzf gdb git gnupg2 libx11-dev libxft-dev libxinerama-dev lightdm meld network-manager-gnome onedrive openscad pkgconf powershell python3-venv ristretto speedcrunch thunar-archive-plugin tldr vim virtualbox-7.0 wget wireshark xfce4 xfce4-clipman-plugin xfce4-power-manager xfce4-screenshooter xfce4-terminal xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev zoxide
 
 APPS:=com.github.IsmaelMartinez.teams_for_linux com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra org.gimp.GIMP org.gnome.Mines org.libreoffice.LibreOffice org.mamedev.MAME org.videolan.VLC org.winehq.Wine//stable-23.08 us.zoom.Zoom
 
@@ -31,7 +31,10 @@ firmware: ## upgrade firmware
 	sudo fwupdmgr refresh --force
 	sudo fwupdmgr update
 
+printer: ## configure printer
+	xdg-open http://localhost:631/admin
+
 size: ## sort installed packets by size
 	dpkg-query -Wf '$${Installed-Size}\t$${Package}\n' | sort -n
 
-.PHONY: help install init firmware size
+.PHONY: help install init firmware printer size
