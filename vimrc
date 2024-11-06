@@ -4,3 +4,4 @@ set background=dark
 set termguicolors
 set title
 set formatoptions+=j
+set hidden
