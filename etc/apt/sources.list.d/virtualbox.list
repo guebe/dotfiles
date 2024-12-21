@@ -1,1 +1,1 @@
-deb [arch=amd64 signed-by=/etc/apt/keyrings/virtualbox.gpg] http://download.virtualbox.org/virtualbox/debian bookworm contrib
+deb [arch=amd64 signed-by=/etc/apt/keyrings/virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian bookworm contrib
