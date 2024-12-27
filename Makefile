@@ -17,6 +17,7 @@ init: ## init software
 	@sudo pam-auth-update --enable fprintd
 	@sudo ln -sf $(CURDIR)/usr/local/bin/mon /usr/local/bin
 	@ln -sf $(CURDIR)/home/user/gitconfig $(HOME)/.gitconfig
+	@ln -sf $(CURDIR)/home/user/tmux.conf $(HOME)/.tmux.conf
 	@ln -sf $(CURDIR)/home/user/vimrc $(HOME)/.vimrc
 	@ln -sf $(CURDIR)/home/user/xsessionrc $(HOME)/.xsessionrc
 	@systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
