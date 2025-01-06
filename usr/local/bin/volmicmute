@@ -1,0 +1,10 @@
+#!/bin/sh
+pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+#MUTE_STATE=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $3}')
+#
+#if [ "$MUTE_STATE" = "yes" ]; then
+#    echo 1 > /sys/devices/platform/thinkpad_acpi/leds/platform\:\:mute/brightness
+#else
+#    echo 0 > /sys/devices/platform/thinkpad_acpi/leds/platform\:\:mute/brightness
+#fi
