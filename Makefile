@@ -15,11 +15,8 @@ init: ## init software
 	@sudo usermod -aG docker,lpadmin,vboxusers,wireshark $(USER)
 	@if fprintd-list $(USER) | grep -qF "no fingers enrolled"; then fprintd-enroll; fi
 	@sudo pam-auth-update --enable fprintd
-	@for bin in $(CURDIR)/usr/local/bin/*; do sudo ln -sf $$bin /usr/local/bin; done
-	@ln -sf $(CURDIR)/home/user/gitconfig $(HOME)/.gitconfig
-	@ln -sf $(CURDIR)/home/user/tmux.conf $(HOME)/.tmux.conf
-	@ln -sf $(CURDIR)/home/user/vimrc $(HOME)/.vimrc
-	@ln -sf $(CURDIR)/home/user/xsessionrc $(HOME)/.xsessionrc
+	@for file in $(CURDIR)/bin/*; do sudo ln -sf $$file /usr/local/bin; done
+	@for file in $(CURDIR)/home/*; do ln -sf $$file $(HOME)/.$$(basename $$file); done
 	@systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
 	@grep -qF "zoxide init bash" $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
 	@grep -qF "/var/lib/flatpak/exports/bin" $(HOME)/.profile || echo 'export PATH="$$PATH:/var/lib/flatpak/exports/bin"' >> $(HOME)/.profile
