@@ -15,14 +15,7 @@ init: ## init software
 	@sudo usermod -aG docker,lpadmin,vboxusers,wireshark $(USER)
 	@if fprintd-list $(USER) | grep -qF "no fingers enrolled"; then fprintd-enroll; fi
 	@sudo pam-auth-update --enable fprintd
-	@sudo ln -sf $(CURDIR)/usr/local/bin/mon /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/brup /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/brdown /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/volup /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/voldown /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/volmute /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/volmicmute /usr/local/bin
-	@sudo ln -sf $(CURDIR)/usr/local/bin/dwmstat /usr/local/bin
+	@for bin in $(CURDIR)/usr/local/bin/*; do sudo ln -sf $$bin /usr/local/bin; done
 	@ln -sf $(CURDIR)/home/user/gitconfig $(HOME)/.gitconfig
 	@ln -sf $(CURDIR)/home/user/tmux.conf $(HOME)/.tmux.conf
 	@ln -sf $(CURDIR)/home/user/vimrc $(HOME)/.vimrc
