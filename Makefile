@@ -17,6 +17,7 @@ config: ## config software
 	@ln -sf $(CURDIR)/home/st.desktop $(HOME)/.local/share/applications
 	@systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
 	@grep -qF "zoxide init bash" $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
+	@grep -qF "source /usr/share/doc/fzf/examples/key-bindings.bash" $(HOME)/.bashrc || echo "source /usr/share/doc/fzf/examples/key-bindings.bash" >> $(HOME)/.bashrc
 	@#@grep -qF "/var/lib/flatpak/exports/bin" $(HOME)/.profile || echo 'export PATH="$$PATH:/var/lib/flatpak/exports/bin"' >> $(HOME)/.profile
 	@nmcli connection show gandalf >/dev/null 2>/dev/null || nmcli connection add type wifi con-name gandalf ifname wlp0s20f3 ssid gandalf wifi-sec.key-mgmt wpa-psk
 	@nmcli connection show radagast >/dev/null 2>/dev/null || nmcli connection add type wifi con-name radagast ifname wlp0s20f3 ssid radagast wifi-sec.key-mgmt wpa-psk
