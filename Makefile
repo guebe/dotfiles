@@ -1,33 +1,31 @@
 help:
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST) | column -tl 2
 
-install: ## install base system
+install: ## install packages
 	sudo cp -R $(CURDIR)/etc/apt /etc
-	sudo apt update -q
-	sudo apt autoremove --purge -y -q
-	sudo apt upgrade -y -q
-	sudo apt install -y -q atril build-essential chromium cifs-utils cm-super cups curl docker-compose firefox-esr flatpak forticlient fwupd fzf gdb-multiarch htop libreoffice-calc libreoffice-impress libreoffice-writer libpam-fprintd lightdm ltrace meld ncat network-manager-gnome network-manager-openvpn-gnome nmap onedrive openscad powershell python3-venv python3-pwntools python3-pycryptodome python3-z3 ristretto snapd socat speedcrunch strace suckless-tools texlive-lang-german texlive-science thunar-archive-plugin tldr tlslookup tshark vim-gtk3 virtualbox-7.1 virt-viewer wireshark xfce4 xfce4-clipman-plugin xfce4-power-manager xfce4-screenshooter xfce4-terminal xserver-xorg-core xserver-xorg-input-libinput xserver-xorg-video-fbdev zoxide
-	sudo apt clean -q
+	sudo apt update -qq
+	sudo apt install -qq bat build-essential cifs-utils cups curl docker-compose firefox-esr flatpak fonts-terminus-otb forticlient fwupd fzf gdb-multiarch git gnome-shell htop libpam-fprintd ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 smbclient socat strace stterm tshark vim virtualbox-7.1 virt-viewer wireshark zoxide
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install --noninteractive flathub com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra
 
-init: ## init software
+config: ## config software
 	@sudo usermod -aG docker,lpadmin,vboxusers,wireshark $(USER)
 	@if fprintd-list $(USER) | grep -qF "no fingers enrolled"; then fprintd-enroll; fi
 	@sudo pam-auth-update --enable fprintd
-	@for file in $(CURDIR)/bin/*; do sudo ln -sf $$file /usr/local/bin; done
-	@for file in $(CURDIR)/home/*; do ln -sf $$file $(HOME)/.$$(basename $$file); done
+	@#@for file in $(CURDIR)/bin/*; do sudo ln -sf $$file /usr/local/bin; done
+	@ln -sf $(CURDIR)/home/gitconfig $(HOME)/.gitconfig
+	@ln -sf $(CURDIR)/home/st.desktop $(HOME)/.local/share/applications
 	@systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
 	@grep -qF "zoxide init bash" $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
-	@grep -qF "/var/lib/flatpak/exports/bin" $(HOME)/.profile || echo 'export PATH="$$PATH:/var/lib/flatpak/exports/bin"' >> $(HOME)/.profile
+	@#@grep -qF "/var/lib/flatpak/exports/bin" $(HOME)/.profile || echo 'export PATH="$$PATH:/var/lib/flatpak/exports/bin"' >> $(HOME)/.profile
 	@nmcli connection show gandalf >/dev/null 2>/dev/null || nmcli connection add type wifi con-name gandalf ifname wlp0s20f3 ssid gandalf wifi-sec.key-mgmt wpa-psk
 	@nmcli connection show radagast >/dev/null 2>/dev/null || nmcli connection add type wifi con-name radagast ifname wlp0s20f3 ssid radagast wifi-sec.key-mgmt wpa-psk
 	@nmcli connection show htlhl >/dev/null 2>/dev/null || nmcli connection add type wifi con-name htlhl ifname wlp0s20f3 ssid HTLHL wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.identity changeme 802-1x.phase2-auth mschapv2
-	@lpstat -v epson >/dev/null 2>/dev/null || /usr/sbin/lpadmin -p epson -E -v ipp://10.0.0.4/ipp/print -m everywhere -o media-default=A4 -o printer-is-shared=false
-	@lpstat -v htlhl >/dev/null 2>/dev/null || /usr/sbin/lpadmin -p follow_you -E -v smb://print.htl-hl.ac.at/FollowYou -m drv:///sample.drv/generic.ppd -o media=A4 -o printer-is-shared=false
+	@#@lpstat -v epson >/dev/null 2>/dev/null || /usr/sbin/lpadmin -p epson -E -v ipp://10.0.0.4/ipp/print -m everywhere -o media-default=A4 -o printer-is-shared=false
+	@lpstat -v follow_you >/dev/null 2>/dev/null || /usr/sbin/lpadmin -p follow_you -E -v smb://print.htl-hl.ac.at/FollowYou -m drv:///sample.drv/generic.ppd -o media=A4 -o printer-is-shared=false
 
-firmware: ## upgrade firmware
+firmware: ## update firmware
 	@sudo fwupdmgr refresh --force
 	@sudo fwupdmgr update
 
-.PHONY: help install init firmware
+.PHONY: help install config firmware
