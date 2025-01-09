@@ -4,7 +4,7 @@ help:
 install: ## install packages
 	sudo cp -R $(CURDIR)/etc/apt /etc
 	sudo apt update -qq
-	sudo apt install -qq bat build-essential cifs-utils cups curl docker-compose firefox-esr flatpak fonts-terminus-otb forticlient fwupd fzf gdb-multiarch git gnome-shell htop libpam-fprintd ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 smbclient socat strace stterm tshark vim virtualbox-7.1 virt-viewer wireshark zoxide
+	sudo apt install -qq bat build-essential cifs-utils cups curl docker-compose firefox-esr flatpak fonts-terminus-otb forticlient fwupd fzf gdb-multiarch git gitk gnome-shell htop libpam-fprintd libxft-dev libx11-dev ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 smbclient socat strace stterm tshark vim virtualbox-7.1 virt-viewer wireshark zoxide
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install --noninteractive flathub com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra
 
@@ -14,7 +14,6 @@ config: ## config software
 	@sudo pam-auth-update --enable fprintd
 	@#@for file in $(CURDIR)/bin/*; do sudo ln -sf $$file /usr/local/bin; done
 	@ln -sf $(CURDIR)/home/gitconfig $(HOME)/.gitconfig
-	@ln -sf $(CURDIR)/home/st.desktop $(HOME)/.local/share/applications
 	@systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
 	@grep -qF "zoxide init bash" $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
 	@grep -qF "source /usr/share/doc/fzf/examples/key-bindings.bash" $(HOME)/.bashrc || echo "source /usr/share/doc/fzf/examples/key-bindings.bash" >> $(HOME)/.bashrc
