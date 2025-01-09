@@ -10,6 +10,7 @@ install: ## install packages
 
 config: ## config software
 	@sudo usermod -aG docker,lpadmin,vboxusers,wireshark $(USER)
+	@sudo update-alternatives  --set editor /usr/bin/vim.basic
 	@if fprintd-list $(USER) | grep -qF "no fingers enrolled"; then fprintd-enroll; fi
 	@sudo pam-auth-update --enable fprintd
 	@#@for file in $(CURDIR)/bin/*; do sudo ln -sf $$file /usr/local/bin; done
