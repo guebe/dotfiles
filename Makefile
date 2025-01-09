@@ -22,7 +22,7 @@ config: ## config software
 	@#@grep -qF "/var/lib/flatpak/exports/bin" $(HOME)/.profile || echo 'export PATH="$$PATH:/var/lib/flatpak/exports/bin"' >> $(HOME)/.profile
 	@nmcli connection show gandalf >/dev/null 2>/dev/null || nmcli connection add type wifi con-name gandalf ifname wlp0s20f3 ssid gandalf wifi-sec.key-mgmt wpa-psk
 	@nmcli connection show radagast >/dev/null 2>/dev/null || nmcli connection add type wifi con-name radagast ifname wlp0s20f3 ssid radagast wifi-sec.key-mgmt wpa-psk
-	@nmcli connection show htlhl >/dev/null 2>/dev/null || nmcli connection add type wifi con-name htlhl ifname wlp0s20f3 ssid HTLHL wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.identity changeme 802-1x.phase2-auth mschapv2
+	@nmcli connection show htlhl >/dev/null 2>/dev/null || nmcli connection add type wifi con-name htlhl ifname wlp0s20f3 ssid HTLHL wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.ca-cert $(HOME)/ad_ca.cer 802-1x.identity changeme 802-1x.phase2-auth mschapv2
 	@#@lpstat -v epson >/dev/null 2>/dev/null || /usr/sbin/lpadmin -p epson -E -v ipp://10.0.0.4/ipp/print -m everywhere -o media-default=A4 -o printer-is-shared=false
 	@lpstat -v follow_you >/dev/null 2>/dev/null || /usr/sbin/lpadmin -p follow_you -E -v smb://print.htl-hl.ac.at/FollowYou -m drv:///sample.drv/generic.ppd -o media=A4 -o printer-is-shared=false
 
