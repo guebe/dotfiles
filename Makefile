@@ -15,6 +15,7 @@ config: ## config software
 	@sudo pam-auth-update --enable fprintd
 	@#@for file in $(CURDIR)/bin/*; do sudo ln -sf $$file /usr/local/bin; done
 	@ln -sf $(CURDIR)/home/gitconfig $(HOME)/.gitconfig
+	@ln -sf $(CURDIR)/home/vimrc $(HOME)/.vimrc
 	@systemctl is-active --quiet --user onedrive || (onedrive && systemctl --user --now enable onedrive)
 	@grep -qF "zoxide init bash" $(HOME)/.bashrc || echo 'eval "$$(zoxide init bash)"' >> $(HOME)/.bashrc
 	@grep -qF "source /usr/share/doc/fzf/examples/key-bindings.bash" $(HOME)/.bashrc || echo "source /usr/share/doc/fzf/examples/key-bindings.bash" >> $(HOME)/.bashrc
