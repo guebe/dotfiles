@@ -4,7 +4,7 @@ help:
 install: ## install packages
 	sudo cp -R $(CURDIR)/etc/apt /etc
 	sudo apt update -qq
-	sudo apt install -qq build-essential cifs-utils cups curl docker-compose firefox-esr flatpak fonts-terminus-otb forticlient fwupd fzf gdb-multiarch git gitk gnome-shell htop libpam-fprintd libreoffice-calc libreoffice-writer libxft-dev libx11-dev ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad pandoc powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 qemu-system-x86 qemu-user smbclient socat strace stterm texlive-latex-base texlive-latex-extra tldr tshark vim virtualbox-7.1 virt-viewer wireshark zoxide
+	sudo apt install -qq build-essential cifs-utils cups curl docker-compose feh firefox-esr flatpak fonts-terminus-otb forticlient fwupd fzf gdb-multiarch git gitk gnome-shell htop libpam-fprintd libreoffice-calc libreoffice-gnome libreoffice-writer libxft-dev libx11-dev ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad pandoc powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 qemu-system-x86 qemu-user smbclient socat strace stterm texlive-latex-base texlive-latex-extra tldr tshark vim virtualbox-7.1 virt-viewer wireshark zoxide
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install --noninteractive flathub com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra
 
