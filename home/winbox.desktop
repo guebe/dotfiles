@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Exec=/opt/winbox/WinBox
+Icon=/opt/winbox/assets/img/winbox.png
+Name=WinBox
