@@ -8,15 +8,12 @@ help:
 install: ## install packages
 	$(SUDO) cp -R $(CURDIR)/etc/apt /etc
 	$(SUDO) apt update -qq
-	$(SUDO) apt install -qq build-essential cifs-utils cups curl docker-compose feh firefox-esr flatpak forticlient fwupd fzf gdb-multiarch git gitk gnome-shell htop libpam-fprintd libreoffice-calc libreoffice-gnome libreoffice-writer libxft-dev libx11-dev ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad pandoc powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 qemu-system-x86 qemu-user smbclient socat strace texlive-latex-base texlive-latex-extra tldr tshark vim virtualbox-7.1 virt-viewer wireshark zoxide
+	$(SUDO) apt install -qq build-essential cifs-utils cups curl docker-compose feh firefox-esr flatpak forticlient fwupd fzf gdb-multiarch git gitk gnome-shell htop libreoffice-calc libreoffice-gnome libreoffice-writer libxft-dev libx11-dev ltrace meld nautilus network-manager-openvpn-gnome nmap onedrive openscad pandoc powershell python3-pwntools python3-pycryptodome python3-venv python3-z3 qemu-system-x86 qemu-user smbclient socat strace texlive-latex-base texlive-latex-extra tldr tshark vim-gtk virtualbox-7.1 virt-viewer wireshark zoxide
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install --noninteractive flathub com.prusa3d.PrusaSlicer org.ghidra_sre.Ghidra com.mikrotik.WinBox
 
 config: ## config software
 	@$(SUDO) usermod -aG docker,lpadmin,vboxusers,wireshark $(USER)
-	@$(SUDO) update-alternatives  --set editor /usr/bin/vim.basic
-	@if fprintd-list $(USER) | grep -qF "no fingers enrolled"; then fprintd-enroll; fi
-	@$(SUDO) pam-auth-update --enable fprintd
 	@#@for file in $(CURDIR)/bin/*; do $(SUDO) ln -sf $$file /usr/local/bin; done
 	@ln -sf $(CURDIR)/home/gitconfig $(HOME)/.gitconfig
 	@ln -sf $(CURDIR)/home/vimrc $(HOME)/.vimrc
